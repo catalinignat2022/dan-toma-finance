@@ -44,3 +44,12 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
+
+/* Hide TradingView watermark/logo from lightweight-charts */
+#tv-attr-logo,
+a[href*="tradingview.com"][title="Charting by TradingView"] {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}

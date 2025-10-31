@@ -56,6 +56,9 @@ export function StockChart({ symbol, interval = '60min', height = 500 }: StockCh
         timeVisible: true,
         secondsVisible: false,
       },
+      watermark: {
+        visible: false,
+      },
     });
 
     chartRef.current = chart;

@@ -3,10 +3,10 @@ import { StockChart } from '@/components/chart/StockChart';
 import { Header } from '@/components/layout/Header';
 
 interface StockPageProps {
-  params: {
+  params: Promise<{
     locale: string;
     symbol: string;
-  };
+  }>;
 }
 
 async function getStockQuote(symbol: string) {
@@ -28,7 +28,7 @@ async function getStockQuote(symbol: string) {
 }
 
 export default async function StockPage({ params }: StockPageProps) {
-  const { symbol } = params;
+  const { symbol } = await params;
   const stockData = await getStockQuote(symbol.toUpperCase());
 
   return (

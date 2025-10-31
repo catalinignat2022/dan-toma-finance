@@ -2,6 +2,8 @@ import { useTranslations } from 'next-intl';
 import { Header } from '@/components/layout/Header';
 import { MarketOverview } from '@/components/home/MarketOverview';
 import { MarketIndices } from '@/components/home/MarketIndices';
+import { MajorIndices } from '@/components/home/MajorIndices';
+import { MarketHeatmap } from '@/components/home/MarketHeatmap';
 import { NewsSection } from '@/components/home/NewsSection';
 import { TopMovers } from '@/components/home/TopMovers';
 
@@ -23,8 +25,14 @@ export default function HomePage() {
           </p>
         </div>
 
+        {/* Major Indices Charts - DOW, NASDAQ, S&P 500, Russell 2000 */}
+        <MajorIndices />
+
         {/* Market Indices */}
         <MarketIndices />
+
+        {/* Market Heatmap - Full width (Finviz style) */}
+        <MarketHeatmap />
 
         {/* Market Overview - Top Gainers, Losers, Active */}
         <MarketOverview />

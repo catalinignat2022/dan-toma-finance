@@ -1,6 +1,6 @@
 {
   "common": {
-    "appName": "FinViz Clone",
+    "appName": "Dan Toma Finance",
     "home": "Home",
     "stocks": "Stocks",
     "crypto": "Crypto",
@@ -21,6 +21,8 @@
     "topMovers": "Top Movers",
     "marketOverview": "Market Overview",
     "marketIndices": "Market Indices",
+    "majorIndices": "Major Indices",
+    "marketHeatmap": "Market Heatmap",
     "latestNews": "Latest News",
     "symbol": "Symbol",
     "price": "Price",
