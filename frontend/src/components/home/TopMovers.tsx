@@ -335,7 +335,7 @@ export function TopMovers() {
 
               {/* Finviz watermark */}
               <div className="text-right mt-2">
-                <span className="text-xs text-gray-500">© finviz.com</span>
+                <span className="text-xs text-gray-500">© Dan Toma Financiar</span>
               </div>
             </div>
           )}

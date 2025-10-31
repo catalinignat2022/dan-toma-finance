@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import { useTranslations } from 'next-intl';
-import { Header } from '@/components/layout/Header';
 import { MarketHeatmap } from '@/components/home/MarketHeatmap';
 
 type MapFilter = 'sp500' | 'dow30' | 'nasdaq100' | 'russell2000' | 'all' | 'world' | 'etfs' | 'crypto';
@@ -24,8 +23,6 @@ export default function MapPage() {
 
   return (
     <div className="min-h-screen bg-[#0a0a0a]">
-      <Header />
-      
       <main className="flex gap-4 px-4 py-6">
         {/* Left Sidebar - Filters */}
         <aside className="w-48 flex-shrink-0">

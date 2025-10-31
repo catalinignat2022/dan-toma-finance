@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from 'react';
 import { useTranslations } from 'next-intl';
+import Link from 'next/link';
+import { useParams } from 'next/navigation';
 
 interface MarketData {
   topGainers: StockQuote[];
@@ -21,6 +23,8 @@ interface StockQuote {
 
 export function MarketOverview() {
   const t = useTranslations('home');
+  const params = useParams();
+  const locale = params?.locale as string || 'en';
   const [data, setData] = useState<MarketData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -97,9 +101,10 @@ export function MarketOverview() {
           </h3>
           <div className="space-y-2">
             {data.topGainers.slice(0, 5).map((stock) => (
-              <div
+              <Link
                 key={stock.symbol}
-                className="flex justify-between items-center p-3 bg-gray-50 dark:bg-gray-800 rounded hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors cursor-pointer"
+                href={`/${locale}/stock/${stock.symbol}`}
+                className="flex justify-between items-center p-3 bg-gray-50 dark:bg-gray-800 rounded hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors cursor-pointer block"
               >
                 <div>
                   <p className="font-semibold text-gray-900 dark:text-white">{stock.symbol}</p>
@@ -115,7 +120,7 @@ export function MarketOverview() {
                     +${stock.change ? stock.change.toFixed(2) : '0.00'}
                   </p>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         </div>
@@ -128,9 +133,10 @@ export function MarketOverview() {
           </h3>
           <div className="space-y-2">
             {data.topLosers.slice(0, 5).map((stock) => (
-              <div
+              <Link
                 key={stock.symbol}
-                className="flex justify-between items-center p-3 bg-gray-50 dark:bg-gray-800 rounded hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors cursor-pointer"
+                href={`/${locale}/stock/${stock.symbol}`}
+                className="flex justify-between items-center p-3 bg-gray-50 dark:bg-gray-800 rounded hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors cursor-pointer block"
               >
                 <div>
                   <p className="font-semibold text-gray-900 dark:text-white">{stock.symbol}</p>
@@ -146,7 +152,7 @@ export function MarketOverview() {
                     ${stock.change ? stock.change.toFixed(2) : '0.00'}
                   </p>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         </div>
@@ -159,9 +165,10 @@ export function MarketOverview() {
           </h3>
           <div className="space-y-2">
             {data.mostActive.slice(0, 5).map((stock) => (
-              <div
+              <Link
                 key={stock.symbol}
-                className="flex justify-between items-center p-3 bg-gray-50 dark:bg-gray-800 rounded hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors cursor-pointer"
+                href={`/${locale}/stock/${stock.symbol}`}
+                className="flex justify-between items-center p-3 bg-gray-50 dark:bg-gray-800 rounded hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors cursor-pointer block"
               >
                 <div>
                   <p className="font-semibold text-gray-900 dark:text-white">{stock.symbol}</p>
@@ -180,7 +187,7 @@ export function MarketOverview() {
                     </p>
                   )}
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         </div>

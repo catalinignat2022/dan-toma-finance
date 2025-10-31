@@ -1,6 +1,5 @@
 import { useTranslations } from 'next-intl';
 import { StockChart } from '@/components/chart/StockChart';
-import { Header } from '@/components/layout/Header';
 
 interface StockPageProps {
   params: Promise<{
@@ -32,9 +31,7 @@ export default async function StockPage({ params }: StockPageProps) {
   const stockData = await getStockQuote(symbol.toUpperCase());
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-black">
-      <Header />
-
+    <div className="min-h-screen bg-gray-50 dark:bg-[#0f1114]">
       <main className="container mx-auto px-4 py-8">
         {/* Stock Header */}
         {stockData ? (

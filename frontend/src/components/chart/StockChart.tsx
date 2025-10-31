@@ -33,28 +33,57 @@ export function StockChart({ symbol, interval = '60min', height = 500 }: StockCh
   useEffect(() => {
     if (!chartContainerRef.current) return;
 
+    // Detect dark mode
+    const isDarkMode = document.documentElement.classList.contains('dark');
+    
     // Create chart
     const chart = createChart(chartContainerRef.current, {
       width: chartContainerRef.current.clientWidth,
       height: height,
       layout: {
-        background: { color: '#ffffff' },
-        textColor: '#333',
+        background: { color: isDarkMode ? '#1a1d2e' : '#ffffff' },
+        textColor: isDarkMode ? '#d1d5db' : '#333',
       },
       grid: {
-        vertLines: { color: '#f0f0f0' },
-        horzLines: { color: '#f0f0f0' },
+        vertLines: { color: isDarkMode ? '#2a2e3f' : '#f0f0f0' },
+        horzLines: { color: isDarkMode ? '#2a2e3f' : '#f0f0f0' },
       },
       crosshair: {
         mode: 1,
+        vertLine: {
+          color: isDarkMode ? '#5a5e6f' : '#9ca3af',
+          width: 1,
+          style: 3,
+          labelBackgroundColor: isDarkMode ? '#2a2e3f' : '#e5e7eb',
+        },
+        horzLine: {
+          color: isDarkMode ? '#5a5e6f' : '#9ca3af',
+          width: 1,
+          style: 3,
+          labelBackgroundColor: isDarkMode ? '#2a2e3f' : '#e5e7eb',
+        },
       },
       rightPriceScale: {
-        borderColor: '#e0e0e0',
+        borderColor: isDarkMode ? '#2a2e3f' : '#e0e0e0',
+        textColor: isDarkMode ? '#9ca3af' : '#666',
+        scaleMargins: {
+          top: 0.1,
+          bottom: 0.2,
+        },
+      },
+      leftPriceScale: {
+        visible: false,
+        scaleMargins: {
+          top: 0.8,
+          bottom: 0,
+        },
       },
       timeScale: {
-        borderColor: '#e0e0e0',
+        borderColor: isDarkMode ? '#2a2e3f' : '#e0e0e0',
         timeVisible: true,
         secondsVisible: false,
+        barSpacing: 6,
+        minBarSpacing: 3,
       },
       watermark: {
         visible: false,
@@ -63,25 +92,28 @@ export function StockChart({ symbol, interval = '60min', height = 500 }: StockCh
 
     chartRef.current = chart;
 
-    // Create candlestick series
+    // Create candlestick series - Finviz style (hollow up candles, filled down candles)
     const candlestickSeries = chart.addCandlestickSeries({
-      upColor: '#22c55e',
+      upColor: 'transparent',
       downColor: '#ef4444',
       borderUpColor: '#22c55e',
       borderDownColor: '#ef4444',
       wickUpColor: '#22c55e',
       wickDownColor: '#ef4444',
+      borderVisible: true,
+      wickVisible: true,
+      priceLineVisible: false,
     });
 
     candlestickSeriesRef.current = candlestickSeries;
 
-    // Create volume series
+    // Create volume series on left scale (Finviz style - very small at bottom)
     const volumeSeries = chart.addHistogramSeries({
-      color: '#26a69a',
+      color: 'rgba(100, 116, 139, 0.25)',
       priceFormat: {
         type: 'volume',
       },
-      priceScaleId: '',
+      priceScaleId: 'left',
     });
 
     volumeSeriesRef.current = volumeSeries;

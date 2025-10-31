@@ -1,5 +1,4 @@
 import { useTranslations } from 'next-intl';
-import { Header } from '@/components/layout/Header';
 import { MarketOverview } from '@/components/home/MarketOverview';
 import { MarketIndices } from '@/components/home/MarketIndices';
 import { MajorIndices } from '@/components/home/MajorIndices';
@@ -11,9 +10,7 @@ export default function HomePage() {
   const t = useTranslations('home');
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
-      <Header />
-      
+    <div className="min-h-screen bg-[#f5f5f5] dark:bg-[#0f1114] transition-colors duration-300 ease-in-out">
       <main className="container mx-auto px-4 py-6 space-y-6">
         {/* Page Title */}
         <div className="text-center">
