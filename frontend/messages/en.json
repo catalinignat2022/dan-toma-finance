@@ -1,0 +1,67 @@
+{
+  "common": {
+    "appName": "FinViz Clone",
+    "home": "Home",
+    "stocks": "Stocks",
+    "crypto": "Crypto",
+    "news": "News",
+    "screener": "Screener",
+    "portfolio": "Portfolio",
+    "search": "Search",
+    "loading": "Loading...",
+    "error": "Error",
+    "tryAgain": "Try again"
+  },
+  "home": {
+    "title": "Market Overview",
+    "subtitle": "Real-time stock & crypto market data",
+    "topGainers": "Top Gainers",
+    "topLosers": "Top Losers",
+    "mostActive": "Most Active",
+    "topMovers": "Top Movers",
+    "marketOverview": "Market Overview",
+    "marketIndices": "Market Indices",
+    "latestNews": "Latest News",
+    "symbol": "Symbol",
+    "price": "Price",
+    "change": "Change",
+    "changePercent": "Change %",
+    "volume": "Volume",
+    "viewAll": "View All",
+    "loading": "Loading...",
+    "error": "Error loading data",
+    "noData": "No data available"
+  },
+  "chart": {
+    "chartTitle": "Price Chart",
+    "1min": "1m",
+    "5min": "5m",
+    "15min": "15m",
+    "30min": "30m",
+    "1hour": "1h",
+    "daily": "1D",
+    "weekly": "1W",
+    "monthly": "1M",
+    "loading": "Loading chart...",
+    "up": "Up",
+    "down": "Down",
+    "volume": "Volume",
+    "timeframes": {
+      "1D": "1 Day",
+      "1W": "1 Week",
+      "1M": "1 Month",
+      "3M": "3 Months",
+      "1Y": "1 Year",
+      "ALL": "All"
+    },
+    "open": "Open",
+    "high": "High",
+    "low": "Low",
+    "close": "Close"
+  },
+  "market": {
+    "bullish": "Bullish",
+    "bearish": "Bearish",
+    "neutral": "Neutral"
+  }
+}

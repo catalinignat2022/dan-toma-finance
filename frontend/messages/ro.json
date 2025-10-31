@@ -1,0 +1,67 @@
+{
+  "common": {
+    "appName": "FinViz Clone",
+    "home": "Acasă",
+    "stocks": "Acțiuni",
+    "crypto": "Cripto",
+    "news": "Știri",
+    "screener": "Screener",
+    "portfolio": "Portofoliu",
+    "search": "Căutare",
+    "loading": "Se încarcă...",
+    "error": "Eroare",
+    "tryAgain": "Încearcă din nou"
+  },
+  "home": {
+    "title": "Prezentare Generală Piață",
+    "subtitle": "Date în timp real pentru acțiuni și cripto",
+    "topGainers": "Cei Mai Mari Câștigători",
+    "topLosers": "Cei Mai Mari Perdanți",
+    "mostActive": "Cele Mai Active",
+    "topMovers": "Cele Mai Active Acțiuni",
+    "marketOverview": "Prezentare Generală Piață",
+    "marketIndices": "Indici de Piață",
+    "latestNews": "Ultimele Știri",
+    "symbol": "Simbol",
+    "price": "Preț",
+    "change": "Schimbare",
+    "changePercent": "Schimbare %",
+    "volume": "Volum",
+    "viewAll": "Vezi Toate",
+    "loading": "Se încarcă...",
+    "error": "Eroare la încărcarea datelor",
+    "noData": "Nu există date disponibile"
+  },
+  "chart": {
+    "chartTitle": "Grafic Preț",
+    "1min": "1m",
+    "5min": "5m",
+    "15min": "15m",
+    "30min": "30m",
+    "1hour": "1o",
+    "daily": "1Z",
+    "weekly": "1S",
+    "monthly": "1L",
+    "loading": "Se încarcă graficul...",
+    "up": "Creștere",
+    "down": "Scădere",
+    "volume": "Volum",
+    "timeframes": {
+      "1D": "1 Zi",
+      "1W": "1 Săptămână",
+      "1M": "1 Lună",
+      "3M": "3 Luni",
+      "1Y": "1 An",
+      "ALL": "Tot"
+    },
+    "open": "Deschidere",
+    "high": "Maxim",
+    "low": "Minim",
+    "close": "Închidere"
+  },
+  "market": {
+    "bullish": "Ascendent",
+    "bearish": "Descendent",
+    "neutral": "Neutru"
+  }
+}
