@@ -143,19 +143,21 @@ const SECTOR_MAP: Record<string, string> = {
 export function MarketHeatmap({ 
   fullScreen = false, 
   height = 700, 
+  filter = 'sp500',
   showTitle = true,
-  enableNavigation = true,
-  filter = 'sp500'
-}: MarketHeatmapProps = {}) {
+  enableNavigation = true
+}: MarketHeatmapProps) {
   const t = useTranslations('home');
   const router = useRouter();
   const params = useParams();
   const locale = params?.locale as string || 'en';
   const svgRef = useRef<SVGSVGElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+  const popupRef = useRef<HTMLDivElement>(null);
   
   const [data, setData] = useState<StockData[]>([]);
   const [loading, setLoading] = useState(true);
+  const [hoveredStock, setHoveredStock] = useState<{ stock: StockData; sector: string; x: number; y: number } | null>(null);
 
   useEffect(() => {
     fetchMarketData();
@@ -436,15 +438,31 @@ export function MarketHeatmap({
           router.push(`/${locale}/stock/${stock.symbol}`);
         }
       })
-      .on('mouseover', function() {
+      .on('mouseover', function(event: any, d: any) {
         d3.select(this)
           .attr('stroke', '#fff')
           .attr('stroke-width', 2);
+        
+        // Show sector popup on hover
+        const stock = d.data.stock;
+        if (stock && fullScreen) {
+          const rect = this.getBoundingClientRect();
+          const sector = SECTOR_MAP[stock.symbol] || 'OTHER';
+          setHoveredStock({
+            stock,
+            sector,
+            x: rect.left + rect.width / 2,
+            y: rect.top - 10
+          });
+        }
       })
       .on('mouseout', function() {
         d3.select(this)
           .attr('stroke', '#000')
           .attr('stroke-width', 1.5);
+        
+        // Hide popup
+        setHoveredStock(null);
       });
 
     // Add stock symbols (main label)
@@ -562,8 +580,91 @@ export function MarketHeatmap({
         </div>
       )}
 
-      <div ref={containerRef} className="p-2">
+      <div ref={containerRef} className="p-2 relative">
         <svg ref={svgRef}></svg>
+
+        {/* Sector Popup on Hover */}
+        {hoveredStock && fullScreen && (
+          <div
+            ref={popupRef}
+            className="fixed z-50 bg-[#2a2a2a] border-2 border-white rounded-lg shadow-2xl p-4 pointer-events-none"
+            style={{
+              left: `${Math.min(Math.max(hoveredStock.x, 225), (typeof window !== 'undefined' ? window.innerWidth : 1920) - 225)}px`,
+              top: hoveredStock.y < 470 ? `${hoveredStock.y + 10}px` : `${hoveredStock.y - 10}px`,
+              transform: hoveredStock.y < 470 ? 'translate(-50%, 0)' : 'translate(-50%, -100%)',
+              maxWidth: '500px',
+              minWidth: '400px',
+              maxHeight: '450px'
+            }}
+          >
+            {/* Header */}
+            <div className="border-b border-gray-600 pb-2 mb-3">
+              <h3 className="text-white font-bold text-sm uppercase tracking-wide">
+                {hoveredStock.sector}
+              </h3>
+              <p className="text-gray-400 text-xs mt-1">
+                INTERNET CONTENT & INFORMATION
+              </p>
+            </div>
+
+            {/* Stocks List */}
+            <div className="space-y-2 max-h-[400px] overflow-y-auto">
+              {[hoveredStock.stock, ...data.filter(stock => 
+                SECTOR_MAP[stock.symbol] === hoveredStock.sector && 
+                stock.symbol !== hoveredStock.stock.symbol
+              )].slice(0, 15).map((stock, index) => {
+                const isHovered = index === 0;
+                const bgColor = isHovered 
+                  ? (stock.changePercent >= 0 ? 'bg-green-800/60' : 'bg-red-800/60')
+                  : '';
+                
+                return (
+                  <div
+                    key={stock.symbol}
+                    className={`flex items-center gap-3 text-xs p-2 rounded transition-colors ${bgColor} ${!isHovered && 'hover:bg-gray-700'}`}
+                  >
+                    {/* Symbol */}
+                    <div className={`w-16 font-bold text-white ${isHovered ? 'text-base' : ''}`}>
+                      {stock.symbol}
+                    </div>
+
+                    {/* Mini Chart Placeholder */}
+                    <div className={`flex-1 flex items-center ${isHovered ? 'h-12' : 'h-8'}`}>
+                      <svg width={isHovered ? "120" : "80"} height={isHovered ? "48" : "32"} className="opacity-60">
+                        {/* Simple line chart - will be replaced with real data later */}
+                        <polyline
+                          points={isHovered ? "0,24 30,20 60,28 90,18 120,24" : "0,16 20,14 40,18 60,12 80,16"}
+                          fill="none"
+                          stroke={stock.changePercent >= 0 ? '#4ade80' : '#f87171'}
+                          strokeWidth={isHovered ? "2" : "1.5"}
+                        />
+                      </svg>
+                    </div>
+
+                    {/* Company Name (only for hovered) */}
+                    {isHovered && (
+                      <div className="text-xs text-gray-300 w-32 truncate">
+                        {stock.name || stock.symbol}
+                      </div>
+                    )}
+
+                    {/* Price */}
+                    <div className={`w-20 text-right text-white font-semibold ${isHovered ? 'text-lg' : ''}`}>
+                      ${stock.price.toFixed(2)}
+                    </div>
+
+                    {/* Change */}
+                    <div className={`w-20 text-right font-bold ${isHovered ? 'text-lg' : ''} ${
+                      stock.changePercent >= 0 ? 'text-green-400' : 'text-red-400'
+                    }`}>
+                      {stock.changePercent >= 0 ? '+' : ''}{stock.changePercent.toFixed(2)}%
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        )}
       </div>
 
       <div className="bg-[#1a1a1a] px-4 py-2 text-xs text-gray-400 text-center border-t border-gray-800">

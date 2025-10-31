@@ -31,14 +31,21 @@ export default function HomePage() {
         {/* Market Indices */}
         <MarketIndices />
 
-        {/* Market Heatmap - Full width (Finviz style) */}
-        <MarketHeatmap />
+        {/* Main Content: Top Movers (Left) + Heatmap (Right) - Finviz Layout */}
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr,600px] gap-6">
+          {/* Left Column: Top Movers */}
+          <div className="order-2 lg:order-1">
+            <TopMovers />
+          </div>
+
+          {/* Right Column: Market Heatmap (Smaller) */}
+          <div className="order-1 lg:order-2">
+            <MarketHeatmap height={500} />
+          </div>
+        </div>
 
         {/* Market Overview - Top Gainers, Losers, Active */}
         <MarketOverview />
-
-        {/* Top Movers Grid */}
-        <TopMovers />
 
         {/* Latest News */}
         <NewsSection />
